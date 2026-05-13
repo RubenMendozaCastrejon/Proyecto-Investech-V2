@@ -17,7 +17,7 @@ Actúa como Lead Flutter Architect, Firebase Solutions Expert y Senior UI/UX Eng
 - Seguridad: ProGuard/R8, SHA-256 audit logs, Play Integrity + App Check
 
 📁 ESTRUCTURA DE CARPETAS EXACTA (RAÍZ → lib/):
-
+```
 appinvestech/
 ├── agents/
 │   ├── skills.md
@@ -58,6 +58,7 @@ appinvestech/
 ├── test/
 ├── pubspec.yaml
 └── firebase.json
+```
 
 🔥 CONFIGURACIÓN FIREBASE (PROYECTO: `bdinvestech`):
 - Paquete Android: `com.investech.appinvestech`
