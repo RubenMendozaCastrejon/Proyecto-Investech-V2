@@ -1,56 +1,140 @@
 # Prompt
-Actúa como un Arquitecto de Software Senior y Experto en Flutter/Firebase. Tu tarea es generar un Plan de Implementación ULTRA extenso, profesional y paso a paso para desarrollar una aplicación móvil Android de inversiones digitales llamada "Investech", utilizando Flutter como framework y Firebase Firestore como base de datos principal.
+Actúa como Lead Flutter Architect, Firebase Solutions Expert y Senior UI/UX Engineer. Tu tarea es diseñar y estructurar una aplicación Android de plataforma de inversiones digitales llamada "Investech", utilizando Flutter, Firebase Firestore, Riverpod, Freezed y Material 3. Entrega un blueprint de implementación de nivel producción, completamente detallado, sin placeholders genéricos y siguiendo estándares 2026.
 
-📌 REQUISITOS TÉCNICOS Y ARQUITECTÓNICOS:
-- Arquitectura: Clean Architecture + Riverpod (state management) + Freezed/JsonSerializable (modelos).
-- Estructura inicial: Define y explica la organización exacta de carpetas en `lib/` (`core`, `data`, `domain`, `presentation`, `di`) y en la raíz del proyecto.
-- Ecosistema IA: Incluye la creación de la carpeta `agents/` con `skills.md`, `reglas/`, `subagentes/` y `flujo_de_trabajo.md`, detallando su propósito y contenido base.
-- Firebase: Configuración completa del proyecto `bdinvestech`, descarga y ubicación de `google-services.json`, configuración de `pubspec.yaml`, inicialización de Firestore (modo producción), Auth, Storage y App Check. Verificación de conectividad vía terminal.
-- Sistema de Diseño: Paleta de colores profesional, tema Material 3, tipografía, y widgets reutilizables (ej. tablas financieras, cards, formularios de orden).
-- Gestión de Estado: Streams en tiempo real, transacciones atómicas, manejo de errores con `dartz`, y caché local.
+⛔ RESTRICCIONES OBLIGATORIAS:
+- NO hagas referencia a archivos externos, scripts SQL previos o contextos anteriores.
+- Considera toda la información proporcionada aquí como la única fuente de verdad.
+- Usa nomenclatura profesional, código listo para producción y patrones Clean Architecture.
+- Responde en español, con bloques de código, tablas comparativas y pasos ejecutables.
+- Si algo requiere validación compleja, incluye la lógica exacta en Dart/Firestore.
 
-📊 ENTIDADES Y DOMINIOS A IMPLEMENTAR (Mapear a Firestore):
-Define cómo estructurarás en Firestore (colecciones, subcolecciones, documentos) y cómo las manejarás en Flutter las siguientes entidades:
-• Usuario (perfil, estado, verificación, país)
-• Sesión (autenticación, tokens, dispositivo, expiración)
-• Documento (KYC: INE, pasaporte, comprobantes, estados de revisión)
-• Perfil de Riesgo (nivel conservador/moderado/agresivo, puntaje 0-100, vigencia)
-• Cuenta (efectivo/margen/custodia, saldos, moneda, estados)
-• Mercado (código MIC, nombre, zona horaria, moneda base)
-• Instrumento (acciones, ETFs, bonos, criptos, etc., ticker, ISIN, lote mínimo)
-• Historial de Precios (OHLCV diario, volumen, ajustes)
-• Orden (mercado, límite, stop, stop-limit, compra/venta, vigencia, estados)
-• Ejecución (fills parciales/totales, comisiones, contraparte)
-• Transacción (depósitos, retiros, compras, ventas, comisiones, referencias)
-• Portafolio (agrupación de activos, valor total, rendimiento)
-• Posición (cantidad, precio promedio, valor de mercado, P&L)
+📐 ARQUITECTURA & TECH STACK:
+- Flutter ≥ 3.22.0 (Android, minSDK 24, Material 3)
+- Firebase: Firestore, Auth, Storage, App Check, FCM, Crashlytics
+- State Management: flutter_riverpod + freezed + json_serializable
+- Arquitectura: Clean Architecture (Domain → Data → Presentation)
+- Validación: dartz (Either), formz/zod-like, transacciones atómicas
+- Seguridad: ProGuard/R8, SHA-256 audit logs, Play Integrity + App Check
 
-🔒 SEGURIDAD, CUMPLIMIENTO Y NOTIFICACIONES:
-- Reglas de seguridad Firestore (RLS adaptado: solo lectura/escritura propia, escrituras financieras bloqueadas en cliente).
-- Auditoría y trazabilidad: logs criptográficos, hashes SHA-256 para órdenes/transacciones.
-- Notificaciones push (FCM): alertas de órdenes, ejecuciones, KYC, precios.
-- Almacenamiento seguro: `flutter_secure_storage`, manejo de tokens, refresh automático.
+📁 ESTRUCTURA DE CARPETAS EXACTA (RAÍZ → lib/):
+appinvestech/
+├── agents/
+│   ├── skills.md
+│   ├── flujo_de_trabajo.md
+│   ├── reglas/
+│   │   ├── firebase_security_rules.md
+│   │   ├── naming_conventions.md
+│   │   └── state_management_rules.md
+│   └── subagentes/
+│       ├── ui_agent.md
+│       ├── data_agent.md
+│       ├── trading_logic_agent.md
+│       └── qa_agent.md
+├── android/ (configuración nativa estándar)
+├── assets/
+│   ├── images/
+│   ├── icons/
+│   └── fonts/
+├── lib/
+│   ├── core/
+│   │   ├── constants/
+│   │   ├── errors/
+│   │   ├── utils/
+│   │   └── theme/
+│   ├── data/
+│   │   ├── datasources/
+│   │   ├── models/
+│   │   └── repositories/
+│   ├── domain/
+│   │   ├── entities/
+│   │   └── repositories/
+│   ├── presentation/
+│   │   ├── providers/
+│   │   ├── screens/
+│   │   └── widgets/
+│   ├── di/
+│   └── main.dart
+├── test/
+├── pubspec.yaml
+└── firebase.json
 
-🚀 TESTING, CI/CD Y DESPLIEGUE:
-- Estrategia de pruebas: unitarias (lógica financiera), widget (UI), integración (flujos E2E), emuladores Firestore.
-- Pipeline CI/CD: GitHub Actions (lint, test, coverage, build appbundle, deploy a track interno).
-- Hardening Android: ProGuard/R8, ofuscación, firma digital (`key.properties`), configuración de `build.gradle`.
-- Checklist Play Store: screenshots, políticas, clasificación, Crashlytics, Performance Monitoring, App Check.
+🔥 CONFIGURACIÓN FIREBASE (PROYECTO: `bdinvestech`):
+- Paquete Android: `com.investech.appinvestech`
+- `google-services.json` debe ubicarse en: `android/app/google-services.json`
+- Incluir comandos de `flutterfire configure`, instalación de FlutterFire CLI, y verificación de conexión en terminal.
+- Especificar dependencias exactas en `pubspec.yaml` con versiones estables 2026.
+- Incluir estructura de `firebase.json` y `firestore.indexes.json` para consultas compuestas.
 
-📝 FORMATO DE SALIDA REQUERIDO:
-- Divide el plan en 4 partes secuenciales (Parte 1 a Parte 4).
-- Usa tablas para mapeos, checklist, índices, métricas y configuraciones.
-- Incluye fragmentos de código clave (`pubspec.yaml`, `main.dart`, modelos Freezed, providers Riverpod, reglas Firestore, scripts de terminal, `proguard-rules.pro`, etc.).
-- Cada parte debe tener un checklist de validación técnica.
-- Mantén un tono profesional, ultra detallado, listo para implementación inmediata por un equipo de desarrollo.
-- NO hagas referencia a archivos externos, esquemas SQL preexistentes o documentación adjunta. Todo debe ser autogenerado y conceptualmente completo.
+🤖 ECOSISTEMA DE AGENTES IA & FLUJO DE TRABAJO:
+- Genera contenido base para `agents/skills.md` (alcance, restricciones, patrones obligatorios).
+- Genera `agents/flujo_de_trabajo.md` (pipeline de desarrollo, revisión, merge, staging).
+- Genera `agents/reglas/*.md` (seguridad, naming, estado).
+- Genera `agents/subagentes/*.md` con responsabilidades claras: UI/UX, Data/Firestore, Lógica de Trading/Órdenes, QA/Testing.
+- Define cómo los subagentes interactúan en PRs, code review y validación automática.
 
-Comienza generando la Parte 1. Espera mi confirmación para continuar con las siguientes partes.
+🗃️ ENTIDADES DE DOMINIO & MAPEO FIRESTORE (EXPLICITAS):
+Define cada entidad con: nombre, campos exactos, tipos, constraints, relaciones y estructura en Firestore (colección/subcolección/documento). NO omitas ningún campo.
 
-# 📘 PLAN DE IMPLEMENTACIÓN ULTRA DETALLADO – PARTE 1 DE 4
-## 🎯 Objetivo: Inicialización, Arquitectura Base, Firebase, Agentes IA y Sistema de Diseño (Investech Android)
+1. USUARIO: id (UUID), nombre (String, max 120), email (String, unique, max 180), telefono (String, max 20), pais (String ISO-2), estado (activo|suspendido|cerrado), verificado_en (Timestamp), creado_en (Timestamp)
+2. DOCUMENTO: id (UUID), usuario_id (UUID ref), tipo (ine|pasaporte|comprobante|otro), url (String), estado (pendiente|aprobado|rechazado), revisado_por (UUID nullable), subido_en (Timestamp)
+3. PERFIL_RIESGO: id (UUID), usuario_id (UUID ref), nivel (conservador|moderado|agresivo), puntaje (int 0-100), respuestas (Map/JSON), vigente (bool), evaluado_en (Timestamp)
+4. CUENTA: id (UUID), usuario_id (UUID ref), numero (String unique, max 20), tipo (efectivo|margen|custodia), moneda (ISO-3, 3 chars), saldo (double/numeric), saldo_bloqueado (double/numeric), estado (activa|suspendida|cerrada), creado_en (Timestamp)
+5. MERCADO: id (UUID), codigo (String unique, MIC), nombre (String, max 100), pais (ISO-2), zona_horaria (String), moneda_base (ISO-3), activo (bool)
+6. INSTRUMENTO: id (UUID), mercado_id (UUID ref), ticker (String unique, max 20), nombre (String, max 150), tipo (accion|etf|bono|cete|cripto|fondo), moneda (ISO-3), isin (String unique, 12 chars), lote_minimo (double), activo (bool)
+7. PRECIO_HISTORICO: id (UUID), instrumento_id (UUID ref), fecha (Date), apertura (double), maximo (double), minimo (double), cierre (double), cierre_ajustado (double nullable), volumen (int)
+8. ORDEN: id (UUID), cuenta_id (UUID ref), instrumento_id (UUID ref), tipo (mercado|limite|stop|stop_limit), lado (compra|venta), cantidad (double), precio_limite (double nullable), precio_stop (double nullable), vigencia (dia|gtc|ioc|fok), estado (pendiente|activa|ejecutada|cancelada), creado_en (Timestamp)
+9. EJECUCION: id (UUID), orden_id (UUID ref), cantidad (double), precio (double), comision (double), contraparte (String nullable), ejecutado_en (Timestamp)
+10. TRANSACCION: id (UUID), cuenta_id (UUID ref), orden_id (UUID ref nullable), tipo (deposito|retiro|compra|venta|comision), monto (double), moneda (ISO-3), referencia (String nullable), estado (pendiente|completada|revertida), fecha (Timestamp)
+11. PORTAFOLIO: id (UUID), cuenta_id (UUID ref), nombre (String, max 100), descripcion (String nullable), valor_total (double), rendimiento_pct (double nullable), actualizado_en (Timestamp)
+12. POSICION: id (UUID), portafolio_id (UUID ref), instrumento_id (UUID ref), cantidad (double), precio_promedio (double), valor_mercado (double), ganancia_perdida (double nullable), actualizado_en (Timestamp)
 
-Esta es la **Parte 1** de un plan profesional de 4 fases. Cubre desde la creación del proyecto Flutter hasta la configuración de Firebase, la estructura de directorios, el ecosistema de agentes IA, la gestión de dependencias, la verificación de conectividad y el sistema de diseño visual. Al final se incluye un adelanto de las Partes 2, 3 y 4.
+📌 REGLAS DE NEGOCIO EXPLICITAS:
+- Solo un PERFIL_RIESGO con `vigente=true` por usuario.
+- `ORDEN` de compra requiere bloqueo de saldo (`saldo_bloqueado += cantidad * precio`).
+- `EJECUCION` y `TRANSACCION` solo se crean vía backend seguro o Cloud Functions (nunca desde cliente).
+- `PRECIO_HISTORICO` se consulta por `(instrumento_id ASC, fecha DESC)`.
+- `PORTAFOLIO` y `POSICION` se recalculan en tiempo real con streams + cálculo P&L.
+- Todos los montos usan precisión mínima de 6 decimales en Firestore.
+
+🎨 SISTEMA DE DISEÑO & UI/UX:
+- Paleta institucional: primario azul oscuro (#0A2E5C), acento verde trading (#00C896), alerta (#FFB400), error (#E63946), fondos neutros, texto primario/secundario.
+- Tipografía: Inter (Google Fonts), escalas responsive con `flutter_screenutil`.
+- Componentes obligatorios: `InvestmentTable` (reutilizable, filas dinámicas, colores condicionales), `OrderForm` (validación en tiempo real, preview de comisión), `PortfolioCard` (valor total, P&L con indicadores), `KYCUploadWidget` (drag/drop, validación MIME, progreso).
+- Material 3, dark/light ready, contraste WCAG 2.1 AA, loading states, error banners, empty states.
+
+🛡️ SEGURIDAD & FIRESTORE RULES:
+- Entrega `firestore.rules` completo con:
+  • Autenticación obligatoria para todo.
+  • Lectura/escritura limitada a `request.auth.uid == userId`.
+  • Escrituras de saldos/órdenes bloqueadas en cliente (`if false`).
+  • Validación de tipos, rangos y formatos (`is string`, `is number`, `size`, `matches regex`).
+  • Colecciones públicas: `mercados`, `instrumentos`, `precio_historico` (solo lectura).
+- Incluye estrategia de índices compuestos en `firestore.indexes.json`.
+
+⚙️ STATE MANAGEMENT & DATA FLOW:
+- Riverpod providers: `authStateProvider`, `userProvider`, `accountsProvider`, `instrumentsProvider`, `ordersProvider`, `portfolioProvider`.
+- Freezed models con `fromJson`/`toFirestore` + `Timestamp` conversion.
+- Transacciones atómicas con `runTransaction` para bloqueos de saldo, creación de órdenes y KYC.
+- Streams en tiempo real para órdenes, posiciones y precios.
+- Error handling con `Either<Failure, T>`, retry logic exponencial, cache local opcional.
+
+🧪 TESTING, CI/CD & DEPLOY:
+- Estructura de tests: `test/domain/`, `test/data/`, `test/presentation/`.
+- Cobertura objetivo: ≥85% unitarios, ≥70% widgets.
+- Pipeline GitHub Actions: lint → format → test → build appbundle → upload internal track.
+- Configuración ProGuard/R8, reglas `proguard-rules.pro` para Firebase/Freezed.
+- Firma digital (keystore), `key.properties`, build commands con `--obfuscate --split-debug-info`.
+- Checklist Play Store: screenshots, privacy policy, content rating, internal testing track, Crashlytics + Performance Monitoring.
+
+📤 INSTRUCCIONES DE ENTREGA:
+1. Responde en 4 fases claramente separadas (Fase 1: Setup + Agentes + Tema, Fase 2: Auth + KYC + RLS, Fase 3: Cuentas + Mercado + Órdenes + Portafolio, Fase 4: FCM + Auditoría + CI/CD + Deploy).
+2. Usa tablas markdown para mapeos, checklist y validaciones.
+3. Incluye bloques de código exactos (sin `// ...` ni placeholders).
+4. Especifica comandos de terminal, rutas de archivos y configuraciones JSON/YAML completas.
+5. No omitas validaciones de negocio, reglas de seguridad ni estrategias de optimización Firestore.
+6. Mantén un tono técnico, profesional y listo para implementación inmediata en equipo.
+
+Comienza entregando la FASE 1 completa. Espera confirmación antes de continuar a la siguiente fase.
 
 ---
 
