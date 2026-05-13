@@ -1,3 +1,52 @@
+# Prompt
+Actúa como un Arquitecto de Software Senior y Experto en Flutter/Firebase. Tu tarea es generar un Plan de Implementación ULTRA extenso, profesional y paso a paso para desarrollar una aplicación móvil Android de inversiones digitales llamada "Investech", utilizando Flutter como framework y Firebase Firestore como base de datos principal.
+
+📌 REQUISITOS TÉCNICOS Y ARQUITECTÓNICOS:
+- Arquitectura: Clean Architecture + Riverpod (state management) + Freezed/JsonSerializable (modelos).
+- Estructura inicial: Define y explica la organización exacta de carpetas en `lib/` (`core`, `data`, `domain`, `presentation`, `di`) y en la raíz del proyecto.
+- Ecosistema IA: Incluye la creación de la carpeta `agents/` con `skills.md`, `reglas/`, `subagentes/` y `flujo_de_trabajo.md`, detallando su propósito y contenido base.
+- Firebase: Configuración completa del proyecto `bdinvestech`, descarga y ubicación de `google-services.json`, configuración de `pubspec.yaml`, inicialización de Firestore (modo producción), Auth, Storage y App Check. Verificación de conectividad vía terminal.
+- Sistema de Diseño: Paleta de colores profesional, tema Material 3, tipografía, y widgets reutilizables (ej. tablas financieras, cards, formularios de orden).
+- Gestión de Estado: Streams en tiempo real, transacciones atómicas, manejo de errores con `dartz`, y caché local.
+
+📊 ENTIDADES Y DOMINIOS A IMPLEMENTAR (Mapear a Firestore):
+Define cómo estructurarás en Firestore (colecciones, subcolecciones, documentos) y cómo las manejarás en Flutter las siguientes entidades:
+• Usuario (perfil, estado, verificación, país)
+• Sesión (autenticación, tokens, dispositivo, expiración)
+• Documento (KYC: INE, pasaporte, comprobantes, estados de revisión)
+• Perfil de Riesgo (nivel conservador/moderado/agresivo, puntaje 0-100, vigencia)
+• Cuenta (efectivo/margen/custodia, saldos, moneda, estados)
+• Mercado (código MIC, nombre, zona horaria, moneda base)
+• Instrumento (acciones, ETFs, bonos, criptos, etc., ticker, ISIN, lote mínimo)
+• Historial de Precios (OHLCV diario, volumen, ajustes)
+• Orden (mercado, límite, stop, stop-limit, compra/venta, vigencia, estados)
+• Ejecución (fills parciales/totales, comisiones, contraparte)
+• Transacción (depósitos, retiros, compras, ventas, comisiones, referencias)
+• Portafolio (agrupación de activos, valor total, rendimiento)
+• Posición (cantidad, precio promedio, valor de mercado, P&L)
+
+🔒 SEGURIDAD, CUMPLIMIENTO Y NOTIFICACIONES:
+- Reglas de seguridad Firestore (RLS adaptado: solo lectura/escritura propia, escrituras financieras bloqueadas en cliente).
+- Auditoría y trazabilidad: logs criptográficos, hashes SHA-256 para órdenes/transacciones.
+- Notificaciones push (FCM): alertas de órdenes, ejecuciones, KYC, precios.
+- Almacenamiento seguro: `flutter_secure_storage`, manejo de tokens, refresh automático.
+
+🚀 TESTING, CI/CD Y DESPLIEGUE:
+- Estrategia de pruebas: unitarias (lógica financiera), widget (UI), integración (flujos E2E), emuladores Firestore.
+- Pipeline CI/CD: GitHub Actions (lint, test, coverage, build appbundle, deploy a track interno).
+- Hardening Android: ProGuard/R8, ofuscación, firma digital (`key.properties`), configuración de `build.gradle`.
+- Checklist Play Store: screenshots, políticas, clasificación, Crashlytics, Performance Monitoring, App Check.
+
+📝 FORMATO DE SALIDA REQUERIDO:
+- Divide el plan en 4 partes secuenciales (Parte 1 a Parte 4).
+- Usa tablas para mapeos, checklist, índices, métricas y configuraciones.
+- Incluye fragmentos de código clave (`pubspec.yaml`, `main.dart`, modelos Freezed, providers Riverpod, reglas Firestore, scripts de terminal, `proguard-rules.pro`, etc.).
+- Cada parte debe tener un checklist de validación técnica.
+- Mantén un tono profesional, ultra detallado, listo para implementación inmediata por un equipo de desarrollo.
+- NO hagas referencia a archivos externos, esquemas SQL preexistentes o documentación adjunta. Todo debe ser autogenerado y conceptualmente completo.
+
+Comienza generando la Parte 1. Espera mi confirmación para continuar con las siguientes partes.
+
 # 📘 PLAN DE IMPLEMENTACIÓN ULTRA DETALLADO – PARTE 1 DE 4
 ## 🎯 Objetivo: Inicialización, Arquitectura Base, Firebase, Agentes IA y Sistema de Diseño (Investech Android)
 
